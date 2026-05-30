@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Library Management System</title>
+
+  <style>
+    body {
+        font-family: "Lato", sans-serif;
+        margin: 0;
+    }
+
+    .tablink {
+        background-color: #555;
+        color: white;
+        float: left;
+        border: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        font-size: 17px;
+        width: 20%;
+    }
+
+    .tablink:hover {
+        background-color: #777;
+    }
+
+    .tabcontent {
+        display: none;
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }
+
+    #Books { background-color: #2196F3; }
+    #Students { background-color: #4CAF50; }
+    #Home { background-color: #4CAF56; }
+    #Issues { background-color: #FF9800; }
+    #Returns { background-color: #9C27B0; }
+  </style>
+</head>
+<body>
+
+<div id="Books" class="tabcontent">
+  <h1>Books Management</h1>
+
+
+<!--  <a th:href="@{/books}">-->
+<!--    <button>View Books</button>-->
+<!--  </a>-->
+</div>
+
+<div id="Students" class="tabcontent">
+  <h1>Students Management</h1>
+
+
+<!--  <a th:href="@{/students}">-->
+<!--    <button>View Students</button>-->
+<!--  </a>-->
+</div>
+
+<div id="Home" class="tabcontent">
+  <h1>Welcome To Library Management System</h1>
+
+
+<!--  <a th:href="@{/students}">-->
+<!--    <button>View Students</button>-->
+<!--  </a>-->
+</div>
+
+<div id="Issues" class="tabcontent">
+  <h1>Issue Books</h1>
+
+
+<!--  <a th:href="@{/issues}">-->
+<!--    <button>Issue Book</button>-->
+<!--  </a>-->
+</div>
+
+<div id="Enquiry" class="tabcontent">
+  <h1>Enquiry</h1>
+
+
+<!--  <a th:href="@{/returns}">-->
+<!--    <button>Return Book</button>-->
+<!--  </a>-->
+</div>
+<a th:href="@{/books}">
+<button class="tablink"
+        onclick="openTab('Books', this, '#2196F3')"
+        >
+  Books
+</button>
+</a>
+
+<a th:href="@{/students}">
+<button class="tablink"
+        onclick="openTab('Students', this, '#4CAF50')">
+  Students
+</button>
+</a>
+
+<!--<a th:href="@{/}">-->
+<button class="tablink"
+        onclick="openTab('Home', this, '#4CAF50')"
+        id="defaultOpen">
+  Home
+</button>
+<!--</a>-->
+
+<a th:href="@{/issues}">
+<button class="tablink"
+        onclick="openTab('Issues', this, '#FF9800')">
+  Issues
+</button>
+</a>
+
+<a th:href="@{/enquiry}">
+<button class="tablink"
+        onclick="openTab('Enquiry', this, '#9C27B0')">
+  Enquiry
+</button>
+</a>
+
+<script>
+  function openTab(tabName, elmnt, color) {
+
+      let i;
+      let tabcontent =
+          document.getElementsByClassName("tabcontent");
+
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+
+      let tablinks =
+          document.getElementsByClassName("tablink");
+
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].style.backgroundColor = "";
+      }
+
+      document.getElementById(tabName).style.display = "block";
+      elmnt.style.backgroundColor = color;
+  }
+
+  document.getElementById("defaultOpen").click();
+</script>
+
+</body>
+</html>
