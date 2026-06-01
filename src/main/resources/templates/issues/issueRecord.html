@@ -115,12 +115,12 @@
     </button>
 <!--</a>-->
 
-<a th:href="@{/enquiry}">
+<!--<a th:href="@{}">-->
     <button class="tablink"
             onclick="openTab('Enquiry', this, '#9C27B0')">
         Enquiry
     </button>
-</a>
+<!--</a>-->
 <script>
     function openTab(tabName, elmnt, color) {
 
@@ -198,9 +198,9 @@
 
             <td th:text="${issueRecord.id}"></td>
 
-            <td th:text="${issueRecord.student.name}"></td>
+            <td th:text="${issueRecord.student != null ? issueRecord.student.name : 'N/A'}"></td>
 
-            <td th:text="${issueRecord.book.title}"></td>
+            <td th:text="${issueRecord.book != null ? issueRecord.book.title : 'N/A'}"></td>
 
             <td th:text="${issueRecord.issueDate}"></td>
             <td th:text="${issueRecord.dueDate}"></td>
