@@ -147,9 +147,50 @@
 </script>
 
 
+
+<div class="container mt-5">
+    <div class="mb-3">
+        <a th:href="@{/issue/new}" class="btn btn-primary">
+            Issue Book
+        </a>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Issued Books
+
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <!-- Search Form -->
+            <form th:action="@{/books/search}" method="get" class="d-flex">
+
+                <input type="text"
+                       name="keyword"
+                       class="form-control me-2"
+                       placeholder="Search Book Title">
+
+                <button type="submit" class="btn btn-secondary">
+                    Search
+                </button>
+
+            </form>
+
+            <!-- Add Book Button -->
+            <a th:href="@{/books/new}" class="btn btn-primary">
+                Add Book
+            </a>
+
+        </div>
+
+    </div>
+
+
+</div>
 <div class="container mt-5">
 
-    <h2 class="text-center mb-4">Student List</h2>
+    <h2 class="text-center mb-4">Issued Book</h2>
 
     <table class="table table-bordered table-striped">
 
@@ -157,39 +198,43 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Course</th>
+            <th>Book</th>
+            <th>IssueDate</th>
+            <th>DueDate</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
 
         <tbody>
 
-        <tr th:each="student : ${students}">
+        <tr th:each="issueRecord : ${issueRecords}">
 
-            <td th:text="${student.id}"></td>
+            <td th:text="${issueRecord.id}"></td>
 
             <td th:text="${student.name}"></td>
 
-            <td th:text="${student.email}"></td>
+            <td th:text="${book.name}"></td>
 
-            <td th:text="${student.course}"></td>
+            <td th:text="${issueRecord.issueDate}"></td>
+            <td th:text="${issueRecord.DueDate}"></td>
+            <td th:text="${issueRecord.status}"></td>
 
             <td>
 
-                <a th:href="@{/students/edit/{id}(id=${student.id})}"
-                   class="btn btn-warning btn-sm">
+                <!--                <a th:href="@{/students/edit/{id}(id=${student.id})}"-->
+                <!--                   class="btn btn-warning btn-sm">-->
 
-                    Edit
+                <!--                    Edit-->
 
-                </a>
+                <!--                </a>-->
 
-                <a th:href="@{/students/delete/{id}(id=${student.id})}"
-                   class="btn btn-danger btn-sm">
+                <!--                <a th:href="@{/students/delete/{id}(id=${student.id})}"-->
+                <!--                   class="btn btn-danger btn-sm">-->
 
-                    Delete
+                <!--                    Delete-->
 
-                </a>
+                <!--                </a>-->
 
             </td>
 
@@ -201,12 +246,6 @@
     </table>
 
 </div>
-<div class="container mt-5">
-    <div class="mb-3">
-        <a th:href="@{/students/new}" class="btn btn-primary">
-            Add Student
-        </a>
-    </div>
-</div>
+
 </body>
 </html>
