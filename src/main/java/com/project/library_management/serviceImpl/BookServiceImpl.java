@@ -1,6 +1,7 @@
 package com.project.library_management.serviceImpl;
 
 import com.project.library_management.entity.Book;
+import com.project.library_management.entity.IssueStatus;
 import com.project.library_management.repository.BookRepository;
 import com.project.library_management.service.BookService;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,17 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> searchBook(String keyword) {
         return bookRepository.findByTitleContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public Long count() {
+        return bookRepository.count();
+    }
+
+
+
+    @Override
+    public Integer sumAvailableQuantity() {
+        return bookRepository.sumQuantity();
     }
 }

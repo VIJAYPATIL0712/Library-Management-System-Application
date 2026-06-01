@@ -23,4 +23,9 @@ public interface IssueRecordService {
     List<IssueRecord> searchIssuedByStudentName(String keyword);
 
     List<IssueRecord> searchNotIssuedByStudentName(String keyword);
+
+
+    Long countByStatus(IssueStatus issueStatus);
+
+    Long countByStatus1(IssueStatus issueStatus);
 }

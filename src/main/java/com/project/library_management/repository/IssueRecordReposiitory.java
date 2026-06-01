@@ -19,4 +19,19 @@ public interface IssueRecordReposiitory extends JpaRepository<IssueRecord , Long
       List<IssueRecord> findByStatusAndStudent_NameContainingIgnoreCase(IssueStatus issueStatus, String keyword);
 
       List<IssueRecord> findByStatusNotAndStudent_NameContainingIgnoreCase(IssueStatus status, String keyword);
+
+
+      @Query("""
+       SELECT COUNT(DISTINCT i.student.id)
+       FROM IssueRecord i
+       WHERE i.status = 'ISSUED'
+       """)
+      Long countStudentsWithIssuedBooks();
+
+      @Query("""
+       SELECT COUNT(DISTINCT i.student.id)
+       FROM IssueRecord i
+       WHERE i.status != 'ISSUED'
+       """)
+      Long countStudentsWithoutIssuedBooks();
 }

@@ -16,4 +16,6 @@ public interface StudentService
     Student getStudentById(Long id);
 
     List<Student> searchStudent(String keyword);
+
+    Long count();
 }

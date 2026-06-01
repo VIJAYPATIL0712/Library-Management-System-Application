@@ -122,4 +122,13 @@ public class IssueRecordImpl implements IssueRecordService {
 //
 //        issueRecordReposiitory.save(existingRecord);
 //    }
+
+    @Override
+    public Long countByStatus(IssueStatus issueStatus) {
+        return issueRecordReposiitory.countStudentsWithIssuedBooks();
+    }
+
+    public Long countByStatus1(IssueStatus issueStatus){
+        return issueRecordReposiitory.countStudentsWithoutIssuedBooks();
+    }
 }

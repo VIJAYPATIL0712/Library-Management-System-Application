@@ -1,6 +1,7 @@
 package com.project.library_management.service;
 
 import com.project.library_management.entity.Book;
+import com.project.library_management.entity.IssueStatus;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
@@ -16,4 +17,9 @@ public interface BookService {
    Book getBookById(Long id);
 
     List<Book> searchBook(String keyword);
+
+    Long count();
+
+
+    Integer sumAvailableQuantity();
 }
