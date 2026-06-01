@@ -149,15 +149,8 @@
 
 
 <div class="container mt-5">
-    <div class="mb-3">
-        <a th:href="@{/issue/new}" class="btn btn-primary">
-            Issue Book
-        </a>
-    </div>
-</div>
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Issued Books
+    <h2 class="text-center mb-4">Issued Book</h2>
 
     <div class="container">
 
@@ -178,20 +171,13 @@
             </form>
 
             <!-- Add Book Button -->
-            <a th:href="@{/books/new}" class="btn btn-primary">
+            <a th:href="@{/issues/new}" class="btn btn-primary">
                 Add Book
             </a>
 
         </div>
 
     </div>
-
-
-</div>
-<div class="container mt-5">
-
-    <h2 class="text-center mb-4">Issued Book</h2>
-
     <table class="table table-bordered table-striped">
 
         <thead class="table-dark">
@@ -212,12 +198,12 @@
 
             <td th:text="${issueRecord.id}"></td>
 
-            <td th:text="${student.name}"></td>
+            <td th:text="${issueRecord.student.name}"></td>
 
-            <td th:text="${book.name}"></td>
+            <td th:text="${issueRecord.book.title}"></td>
 
             <td th:text="${issueRecord.issueDate}"></td>
-            <td th:text="${issueRecord.DueDate}"></td>
+            <td th:text="${issueRecord.dueDate}"></td>
             <td th:text="${issueRecord.status}"></td>
 
             <td>

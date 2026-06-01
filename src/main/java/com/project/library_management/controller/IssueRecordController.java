@@ -16,6 +16,7 @@ public class IssueRecordController {
 
     @GetMapping("/issues")
     public String issue(Model model){
+        System.out.print("Done");
         model.addAttribute("issueRecords",issueRecordService.findIssuedBook());
         return "/issues/issueRecord";
 
