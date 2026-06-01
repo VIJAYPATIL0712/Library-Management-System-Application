@@ -160,7 +160,8 @@
                 <option value="">-- Select Student --</option>
                 <option th:each="s : ${students}"
                         th:value="${s.id}"
-                        th:text="${s.name}">
+                        th:text="${s.name + ' ( LIB' + s.id + ')'}">
+                </option>
                 </option>
             </select>
         </div>

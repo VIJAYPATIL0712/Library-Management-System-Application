@@ -15,10 +15,7 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/")
-    public String home(){
-        return "index";
-    }
+
 
     //Books
 
