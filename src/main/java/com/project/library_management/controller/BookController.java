@@ -80,4 +80,5 @@ public class BookController {
         model.addAttribute("books" , bookService.searchBook(keyword));
         return "books/book_list";
     }
+
 }

@@ -22,6 +22,8 @@ public class IssueRecord {
 
     private LocalDate dueDate;
 
+
+
     public Long getId() {
         return id;
     }
