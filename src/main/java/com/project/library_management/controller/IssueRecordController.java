@@ -18,7 +18,7 @@ public class IssueRecordController {
     public String issue(Model model){
         System.out.print("Done");
         model.addAttribute("issueRecords",issueRecordService.findIssuedBook());
-        return "/issues/issueRecord";
+        return "issues/issueRecord";
 
     }
 }
