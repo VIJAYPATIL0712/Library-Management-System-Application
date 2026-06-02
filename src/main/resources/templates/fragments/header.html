@@ -1,4 +1,6 @@
-<div class="hero-section" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+
+  <div class="hero-section">
 
   <h1>📚 Library Management System</h1>
 
@@ -8,22 +10,36 @@
 
   <div class="nav-buttons">
 
+    <a th:href="@{/}">
+      <button class="menu-btn home-btn">
+        🏠 Home
+      </button>
+    </a>
+
     <a th:href="@{/books}">
-      <button class="menu-btn books-btn">📖 Books</button>
+      <button class="menu-btn books-btn">
+        📖 Books
+      </button>
     </a>
 
     <a th:href="@{/students}">
-      <button class="menu-btn students-btn">🎓 Students</button>
+      <button class="menu-btn students-btn">
+        🎓 Students
+      </button>
     </a>
 
     <a th:href="@{/issues}">
-      <button class="menu-btn issues-btn">📤 Issues</button>
+      <button class="menu-btn issues-btn">
+        📤 Issues
+      </button>
     </a>
 
     <a th:href="@{/returns}">
-      <button class="menu-btn returns-btn">📥 Returns</button>
+      <button class="menu-btn returns-btn">
+        📥 Returns
+      </button>
     </a>
 
   </div>
-
+</div>
 </div>

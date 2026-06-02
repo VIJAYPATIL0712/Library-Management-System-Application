@@ -1,0 +1,104 @@
+ .nav-buttons{
+        margin-top:30px;
+    }
+
+    .nav-buttons a{
+        text-decoration:none;
+    }
+
+    .menu-btn{
+        border:none;
+        padding:12px 25px;
+        margin:5px;
+        border-radius:12px;
+        color:white;
+        font-weight:600;
+        transition:.3s;
+    }
+
+    .menu-btn:hover{
+        transform:translateY(-3px);
+        box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .home-btn{ background:olive;}
+     .books-btn{ background:#2563eb; }
+     .students-btn{ background:#16a34a; }
+     .issues-btn{ background:#ea580c; }
+     .returns-btn{ background:#7c3aed; }
+
+
+    .dashboard{
+        padding:40px 20px;
+    }
+
+    .dashboard-card{
+        border:none;
+        border-radius:20px;
+        overflow:hidden;
+        transition:.3s;
+        height:100%;
+    }
+
+    .dashboard-card:hover{
+        transform:translateY(-8px);
+        box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .card-body{
+        padding:30px;
+    }
+
+    .card-title{
+        font-size:15px;
+        color:#6c757d;
+        margin-bottom:10px;
+        text-transform:uppercase;
+        letter-spacing:1px;
+    }
+
+    .card-number{
+        font-size:40px;
+        font-weight:700;
+    }
+
+    .books{
+        border-left:6px solid #2563eb;
+    }
+
+    .students{
+        border-left:6px solid #16a34a;
+    }
+
+    .issued{
+        border-left:6px solid #ea580c;
+    }
+
+    .returned{
+        border-left:6px solid #7c3aed;
+    }
+
+    .available{
+        border-left:6px solid #0891b2;
+    }
+
+    .footer{
+        text-align:center;
+        padding:20px;
+        color:#6c757d;
+    }
+
+    @media(max-width:768px){
+
+        .hero-section h1{
+            font-size:2rem;
+        }
+
+        .menu-btn{
+            width:100%;
+        }
+
+        .card-number{
+            font-size:32px;
+        }
+    }

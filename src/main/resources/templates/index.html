@@ -6,191 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/indexPage.css}">
   <style>
-
-    body{
-        background:#f4f7fc;
-        font-family:'Segoe UI',sans-serif;
-    }
-
-    .hero-section{
-        background:linear-gradient(135deg,#2563eb,#7c3aed);
-        color:white;
-        padding:50px 20px;
-        text-align:center;
-        border-radius:0 0 25px 25px;
-        box-shadow:0 4px 20px rgba(0,0,0,0.15);
-    }
-
-    .hero-section h1{
-        font-size:2.5rem;
-        font-weight:700;
-    }
-
-    .hero-section p{
-        font-size:1.1rem;
-        opacity:.9;
-    }
-
-    .nav-buttons{
-        margin-top:30px;
-    }
-
-    .nav-buttons a{
-        text-decoration:none;
-    }
-
-    .menu-btn{
-        border:none;
-        padding:12px 25px;
-        margin:5px;
-        border-radius:12px;
-        color:white;
-        font-weight:600;
-        transition:.3s;
-    }
-
-    .menu-btn:hover{
-        transform:translateY(-3px);
-        box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .books-btn{
-        background:#2563eb;
-    }
-
-    .students-btn{
-        background:#16a34a;
-    }
-
-    .issues-btn{
-        background:#ea580c;
-    }
-
-    .returns-btn{
-        background:#7c3aed;
-    }
-
-    .dashboard{
-        padding:40px 20px;
-    }
-
-    .dashboard-card{
-        border:none;
-        border-radius:20px;
-        overflow:hidden;
-        transition:.3s;
-        height:100%;
-    }
-
-    .dashboard-card:hover{
-        transform:translateY(-8px);
-        box-shadow:0 10px 25px rgba(0,0,0,0.15);
-    }
-
-    .card-body{
-        padding:30px;
-    }
-
-    .card-title{
-        font-size:15px;
-        color:#6c757d;
-        margin-bottom:10px;
-        text-transform:uppercase;
-        letter-spacing:1px;
-    }
-
-    .card-number{
-        font-size:40px;
-        font-weight:700;
-    }
-
-    .books{
-        border-left:6px solid #2563eb;
-    }
-
-    .students{
-        border-left:6px solid #16a34a;
-    }
-
-    .issued{
-        border-left:6px solid #ea580c;
-    }
-
-    .returned{
-        border-left:6px solid #7c3aed;
-    }
-
-    .available{
-        border-left:6px solid #0891b2;
-    }
-
-    .footer{
-        text-align:center;
-        padding:20px;
-        color:#6c757d;
-    }
-
-    @media(max-width:768px){
-
-        .hero-section h1{
-            font-size:2rem;
-        }
-
-        .menu-btn{
-            width:100%;
-        }
-
-        .card-number{
-            font-size:32px;
-        }
-    }
 
   </style>
 </head>
 
 <body>
+<!--  Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--  Header-->
 
-<div class="hero-section">
-
-  <h1>📚 Library Management System</h1>
-
-  <p>
-    Manage Books, Students, Issue & Return Operations Efficiently
-  </p>
-
-  <div class="nav-buttons">
-
-    <a th:href="@{/books}">
-      <button class="menu-btn books-btn">
-        📖 Books
-      </button>
-    </a>
-
-    <a th:href="@{/students}">
-      <button class="menu-btn students-btn">
-        🎓 Students
-      </button>
-    </a>
-
-    <a th:href="@{/issues}">
-      <button class="menu-btn issues-btn">
-        📤 Issues
-      </button>
-    </a>
-
-    <a th:href="@{/returns}">
-      <button class="menu-btn returns-btn">
-        📥 Returns
-      </button>
-    </a>
-
-  </div>
-
-</div>
-
-<div class="container dashboard">
+<!--Main Content-->
+  <div class="container dashboard">
 
   <div class="row g-4">
 
@@ -262,10 +91,12 @@
   </div>
 
 </div>
+<!--Main Content-->
 
-<div class="footer">
-  © 2026 Library Management System | Developed using Spring Boot & Thymeleaf
-</div>
+
+<!--Footer-->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<!--Footer-->
 
 </body>
 </html>
