@@ -1,45 +1,65 @@
 <div th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
 
+  <!-- HERO SECTION (Desktop stays SAME) -->
   <div class="hero-section">
 
-  <h1>📚 Library Management System</h1>
+    <h1>📚 Library Management System</h1>
 
-  <p>
-    Manage Books, Students, Issue & Return Operations Efficiently
-  </p>
+    <p>
+      Manage Books, Students, Issue & Return Operations Efficiently
+    </p>
 
-  <div class="nav-buttons">
+    <!-- DESKTOP BUTTONS -->
+    <div class="nav-buttons desktop-menu">
 
-    <a th:href="@{/}">
-      <button class="menu-btn home-btn">
-        🏠 Home
+      <a th:href="@{/}">
+        <button class="menu-btn home-btn">🏠 Home</button>
+      </a>
+
+      <a th:href="@{/books}">
+        <button class="menu-btn books-btn">📖 Books</button>
+      </a>
+
+      <a th:href="@{/students}">
+        <button class="menu-btn students-btn">🎓 Students</button>
+      </a>
+
+      <a th:href="@{/issues}">
+        <button class="menu-btn issues-btn">📤 Issues</button>
+      </a>
+
+      <a th:href="@{/returns}">
+        <button class="menu-btn returns-btn">📥 Returns</button>
+      </a>
+
+    </div>
+
+    <!-- MOBILE DROPDOWN BUTTON -->
+    <!-- MOBILE MENU BUTTON -->
+    <div class="mobile-menu">
+
+      <button class="menu-icon" onclick="openMenu()">
+        ☰
       </button>
-    </a>
 
-    <a th:href="@{/books}">
-      <button class="menu-btn books-btn">
-        📖 Books
-      </button>
-    </a>
+    </div>
 
-    <a th:href="@{/students}">
-      <button class="menu-btn students-btn">
-        🎓 Students
-      </button>
-    </a>
+    <!-- OVERLAY -->
+    <div id="overlay" class="overlay" onclick="closeMenu()"></div>
 
-    <a th:href="@{/issues}">
-      <button class="menu-btn issues-btn">
-        📤 Issues
-      </button>
-    </a>
+    <!-- SIDE DRAWER -->
+    <div id="sideMenu" class="side-menu">
 
-    <a th:href="@{/returns}">
-      <button class="menu-btn returns-btn">
-        📥 Returns
-      </button>
-    </a>
+      <h3>📚 Menu</h3>
+
+      <a th:href="@{/}">🏠 Home</a>
+      <a th:href="@{/books}">📖 Books</a>
+      <a th:href="@{/students}">🎓 Students</a>
+      <a th:href="@{/issues}">📤 Issues</a>
+      <a th:href="@{/returns}">📥 Returns</a>
+
+    </div>
 
   </div>
-</div>
+
 </div>
