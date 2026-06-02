@@ -226,3 +226,74 @@ body{
         display: block;
     }
 }
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+/* MENU ICON (LEFT) */
+.menu-icon {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    font-size: 22px;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(79,172,254,0.3);
+    cursor: pointer;
+}
+
+/* PROFILE ICON (RIGHT) */
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(102,126,234,0.3);
+    transition: 0.2s;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+}
+
+/* COMMON ICON STYLE */
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: all 0.25s ease;
+}
+
+/* MENU ICON */
+.menu-icon {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+/* PROFILE ICON */
+.profile-icon {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* HOVER EFFECT (same for both) */
+.icon-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}

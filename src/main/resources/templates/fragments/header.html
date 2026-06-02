@@ -3,6 +3,7 @@
   <!-- HERO SECTION (Desktop stays SAME) -->
   <div class="hero-section">
 
+
     <h1>📚 Library Management System</h1>
 
     <p>
@@ -36,14 +37,22 @@
 
     <!-- MOBILE DROPDOWN BUTTON -->
     <!-- MOBILE MENU BUTTON -->
-    <div class="mobile-menu">
+    <!-- TOP BAR -->
+    <div class="top-bar">
 
-      <button class="menu-icon" onclick="openMenu()">
-        ☰
-      </button>
+      <!-- LEFT: MENU -->
+      <div class="left">
+        <button class="icon-btn profile-icon" onclick="openMenu()">☰</button>
+      </div>
+
+      <!-- RIGHT: PROFILE -->
+      <div class="right">
+        <div class="icon-btn profile-icon" onclick="toggleProfile()">
+          👤
+        </div>
+      </div>
 
     </div>
-
     <!-- OVERLAY -->
     <div id="overlay" class="overlay" onclick="closeMenu()"></div>
 
