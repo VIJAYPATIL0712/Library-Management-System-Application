@@ -14,6 +14,16 @@ public class IssueRecordResponseDto {
 
     private LocalDate issueDate;
 
+    private long overdueDays;
+
+    public long getOverdueDays() {
+        return overdueDays;
+    }
+
+    public void setOverdueDays(long overdueDays) {
+        this.overdueDays = overdueDays;
+    }
+
     public Long getId() {
         return id;
     }

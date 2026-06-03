@@ -78,11 +78,11 @@
                     <td data-label="ID" th:text="${issueRecord.id}"></td>
 
                     <td data-label="Student"
-                        th:text="${issueRecord.student != null ? issueRecord.student.name : 'N/A'}">
+                        th:text="${issueRecord.studentName}">
                     </td>
 
                     <td data-label="Book"
-                        th:text="${issueRecord.book != null ? issueRecord.book.title : 'N/A'}">
+                        th:text="${issueRecord.bookTitle}">
                     </td>
 
                     <td data-label="Issue Date"

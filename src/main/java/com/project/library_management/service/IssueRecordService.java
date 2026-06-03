@@ -21,7 +21,7 @@ public interface IssueRecordService {
 
     void updateStatus(Long id, IssueStatus issueStatus);
 
-
+    List<IssueRecordResponseDto> findOverdueBooks();
 
     List<IssueRecordResponseDto> searchIssuedByStudentName(String keyword);
 
@@ -31,4 +31,7 @@ public interface IssueRecordService {
     Long countByStatus();
 
     Long countByStatus1();
+
+
+    List<IssueRecordResponseDto> searchOverdueByName(String keyword);
 }

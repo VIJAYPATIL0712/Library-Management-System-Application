@@ -92,4 +92,23 @@ public class IssueRecordController {
         return "returns/returnRecord";
     }
 
+    @GetMapping("/overdue/search")
+    public String overdueSearch(
+            @RequestParam("keyword") String keyword,
+            Model model
+    ) {
+        model.addAttribute("overdueBooks", issueRecordService.searchOverdueByName(keyword));
+        return "overdue/overdue_books";
+    }
+
+    @GetMapping("/overdue")
+    public String overdueBooks(Model model){
+
+        model.addAttribute(
+                "overdueBooks",
+                issueRecordService.findOverdueBooks());
+
+        return "overdue/overdue_books";
+    }
+
 }

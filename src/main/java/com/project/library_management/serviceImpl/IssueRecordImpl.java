@@ -69,6 +69,18 @@ public class IssueRecordImpl implements IssueRecordService {
         dto.setDueDate(issueRecord.getDueDate());
         dto.setReturnDate(issueRecord.getReturnDate());
         dto.setStatus(issueRecord.getStatus());
+        long overdueDays = 0;
+
+        if (issueRecord.getDueDate() != null &&
+                issueRecord.getDueDate().isBefore(LocalDate.now()) &&
+                issueRecord.getStatus() == IssueStatus.ISSUED) {
+
+            overdueDays = java.time.temporal.ChronoUnit.DAYS.between(
+                    issueRecord.getDueDate(),
+                    LocalDate.now());
+        }
+
+        dto.setOverdueDays(overdueDays);
 
         return dto;
     }
@@ -98,11 +110,26 @@ public class IssueRecordImpl implements IssueRecordService {
 
     @Override
     public List<IssueRecordResponseDto> findIssuedBook() {
-        return issueRecordReposiitory.findByStatus(IssueStatus.ISSUED)
+        return issueRecordReposiitory
+                .findByStatusAndDueDateGreaterThanEqual(
+                        IssueStatus.ISSUED,
+                        LocalDate.now()
+                )
                 .stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<IssueRecordResponseDto> findOverdueBooks() {
+
+        return issueRecordReposiitory
+                .findByStatusAndDueDateBefore(
+                        IssueStatus.ISSUED,
+                        LocalDate.now())
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -178,4 +205,19 @@ public class IssueRecordImpl implements IssueRecordService {
     public Long countByStatus1(){
         return issueRecordReposiitory.countStudentsWithoutIssuedBooks();
     }
+
+    @Override
+    public List<IssueRecordResponseDto> searchOverdueByName(String keyword) {
+
+        return issueRecordReposiitory
+                .findByStatusAndDueDateBeforeAndStudent_NameContainingIgnoreCase(
+                        IssueStatus.ISSUED,
+                        LocalDate.now(),
+                        keyword)
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+
 }

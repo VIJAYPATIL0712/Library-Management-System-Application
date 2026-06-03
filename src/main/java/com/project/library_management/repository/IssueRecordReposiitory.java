@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IssueRecordReposiitory extends JpaRepository<IssueRecord , Long> {
@@ -34,4 +35,23 @@ public interface IssueRecordReposiitory extends JpaRepository<IssueRecord , Long
        WHERE i.status != 'ISSUED'
        """)
       Long countStudentsWithoutIssuedBooks();
+
+      List<IssueRecord> findByDueDateBeforeAndStatus(
+              LocalDate date,
+              IssueStatus status);
+
+
+      List<IssueRecord> findByStatusAndDueDateBefore(
+              IssueStatus status,
+              LocalDate date);
+
+      List<IssueRecord> findByStatusAndDueDateGreaterThanEqual(
+              IssueStatus status,
+              LocalDate date);
+
+      List<IssueRecord> findByStatusAndDueDateBeforeAndStudent_NameContainingIgnoreCase(
+              IssueStatus status,
+              LocalDate date,
+              String keyword
+      );
 }

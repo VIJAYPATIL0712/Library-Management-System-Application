@@ -30,7 +30,11 @@
       </a>
 
       <a th:href="@{/returns}">
-        <button class="menu-btn returns-btn">📥 Returns</button>
+        <button class="menu-btn returns-btn" style="background:orange">📥 Returns</button>
+      </a>
+
+      <a th:href="@{/overdue}">
+        <button class="menu-btn overdue-btn" style="background:red">⌛  Overdue </button>
       </a>
 
     </div>
@@ -66,6 +70,7 @@
       <a th:href="@{/students}">🎓 Students</a>
       <a th:href="@{/issues}">📤 Issues</a>
       <a th:href="@{/returns}">📥 Returns</a>
+      <a th:href="@{/overdue}">⌛ Overdue </a>
 
     </div>
 
