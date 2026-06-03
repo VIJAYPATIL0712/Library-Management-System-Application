@@ -88,9 +88,13 @@
         </td>
 
         <td data-label="Status">
-        <span class="badge bg-success"
-              th:text="${returnRecord.status}">
-        </span>
+    <span class="badge"
+          th:classappend="
+            ${returnRecord.status.name() == 'RETURNED'} ? ' bg-success' :
+            (${returnRecord.status.name() == 'LOST'} ? ' bg-danger' :
+            (${returnRecord.status.name() == 'DAMAGED'} ? ' bg-warning text-dark' : ' bg-secondary'))"
+          th:text="${returnRecord.status}">
+    </span>
         </td>
 
         <td data-label="Return Date"

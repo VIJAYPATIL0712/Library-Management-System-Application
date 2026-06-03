@@ -65,6 +65,7 @@
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>Late By</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
 
@@ -106,6 +107,24 @@
 
                     <td data-label="Late By"
                         th:text="${overdueBook.overdueDays + ' Days'}">
+                    </td>
+                    <td data-label="Actions">
+
+                        <a th:href="@{/issues/return/{id}(id=${overdueBook.id})}"
+                           class="btn btn-success btn-sm me-1 mb-1">
+                            Return
+                        </a>
+
+                        <a th:href="@{/issues/lost/{id}(id=${overdueBook.id})}"
+                           class="btn btn-danger btn-sm me-1 mb-1">
+                            Lost
+                        </a>
+
+                        <a th:href="@{/issues/damaged/{id}(id=${overdueBook.id})}"
+                           class="btn btn-warning btn-sm mb-1">
+                            Damaged
+                        </a>
+
                     </td>
 
                 </tr>
