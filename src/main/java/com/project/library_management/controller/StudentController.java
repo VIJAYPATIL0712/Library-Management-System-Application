@@ -1,11 +1,13 @@
 package com.project.library_management.controller;
 
-import com.project.library_management.entity.Book;
-import com.project.library_management.entity.Student;
-import com.project.library_management.repository.StudentRepository;
+import com.project.library_management.dto.student.StudentRequestDto;
+import com.project.library_management.dto.student.StudentResponseDto;
+
 import com.project.library_management.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -13,11 +15,9 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    public StudentController(StudentRepository studentRepository, StudentService studentService) {
+    public StudentController( StudentService studentService) {
         this.studentService = studentService;
-
     }
-
 
 
     @GetMapping("/students")
@@ -28,38 +28,45 @@ public class StudentController {
 
     @GetMapping("/students/new")
     public String createStudentForm(Model model){
-        Student student = new Student();
-        model.addAttribute("student",student);
+        StudentRequestDto studentRequestDto = new StudentRequestDto();
+        model.addAttribute("student",studentRequestDto);
         return "students/add_student";
 
     }
 
     @PostMapping("/students/save_student")
-    public String saveStudent(@ModelAttribute("student") Student student){
-        studentService.saveStudent(student);
+    public String saveStudent(@Valid @ModelAttribute("student") StudentRequestDto studentRequestDto,
+                              BindingResult result,
+                              Model model) {
 
+        if (result.hasErrors()) {
+            return "students/add_student";
+        }
+
+        studentService.saveStudent(studentRequestDto);
         return "redirect:/students";
-
     }
 
 
     @GetMapping("/students/edit/{id}")
-    public String editBook(@PathVariable Long id , Model model){
-        Student student = studentService.getStudentById(id);
-        model.addAttribute("student",student);
+    public String editStudent(@PathVariable Long id , Model model){
+        StudentResponseDto studentResponseDto = studentService.getStudentForId(id);
+        model.addAttribute("student",studentResponseDto);
         return "students/edit_student";
 
     }
 
     @PostMapping("/students/save_edit/{id}")
-    public String saveEdit(@PathVariable Long id,@ModelAttribute("student") Student student){
-        Student existingStudent = studentService.getStudentById(id);
-        existingStudent.setName(student.getName());
-        existingStudent.setEmail(student.getEmail());
-        existingStudent.setContact(student.getContact());
-        existingStudent.setCourse(student.getCourse());
+    public String saveEdit(@PathVariable Long id,
+                           @Valid @ModelAttribute("student") StudentRequestDto studentRequestDto,
+                           BindingResult result,
+                           Model model) {
 
-        studentService.saveStudent(existingStudent);
+        if (result.hasErrors()) {
+            return "students/edit_student";
+        }
+
+        studentService.updateStudent(id, studentRequestDto);
         return "redirect:/students";
     }
 

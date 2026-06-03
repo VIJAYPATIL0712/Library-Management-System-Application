@@ -1,21 +1,25 @@
 package com.project.library_management.service;
 
-import com.project.library_management.entity.Student;
-import org.jspecify.annotations.Nullable;
+import com.project.library_management.dto.student.StudentRequestDto;
+import com.project.library_management.dto.student.StudentResponseDto;
 
 import java.util.List;
 
 public interface StudentService
 {
-    List<Student> getAllStudents();
+    List<StudentResponseDto> getAllStudents();
 
     void deleteStudentById(Long id);
 
-    void saveStudent(Student student);
+    void saveStudent(StudentRequestDto studentRequestDto);
 
-    Student getStudentById(Long id);
+    StudentResponseDto getStudentById(Long id);
 
-    List<Student> searchStudent(String keyword);
+    List<StudentResponseDto> searchStudent(String keyword);
 
     Long count();
+
+    void updateStudent(Long id, StudentRequestDto studentRequestDto);
+
+    StudentResponseDto getStudentForId(Long id);
 }

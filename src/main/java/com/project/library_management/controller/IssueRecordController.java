@@ -1,6 +1,6 @@
 package com.project.library_management.controller;
 
-import com.project.library_management.entity.IssueRecord;
+import com.project.library_management.dto.issue.IssueRecordRequestDto;
 import com.project.library_management.entity.IssueStatus;
 import com.project.library_management.service.BookService;
 import com.project.library_management.service.IssueRecordService;
@@ -35,20 +35,16 @@ public class IssueRecordController {
     @GetMapping("/issues/new")
     public String issueBookForm(Model model) {
 
-        model.addAttribute("issue", new IssueRecord());
-
-
+        model.addAttribute("issue", new IssueRecordRequestDto());
         model.addAttribute("students", studentService.getAllStudents());
-
         model.addAttribute("books", bookService.getAllBooks());
-
         return "issues/IssueBook";
     }
 
 
     @PostMapping("/issues/issue_book")
-    public String saveIssueBook(@ModelAttribute("issue") IssueRecord issueRecord) {
-        issueRecordService.save(issueRecord);
+    public String saveIssueBook(@ModelAttribute("issue") IssueRecordRequestDto issueRecordRequestDto) {
+        issueRecordService.save(issueRecordRequestDto);
         return "redirect:/issues";
 
     }

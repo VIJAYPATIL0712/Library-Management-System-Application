@@ -1,5 +1,8 @@
 package com.project.library_management.serviceImpl;
 
+import com.project.library_management.dto.book.BookRequestDto;
+import com.project.library_management.dto.issue.IssueRecordRequestDto;
+import com.project.library_management.dto.issue.IssueRecordResponseDto;
 import com.project.library_management.entity.Book;
 import com.project.library_management.entity.IssueRecord;
 import com.project.library_management.entity.IssueStatus;
@@ -14,9 +17,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class IssueRecordImpl implements IssueRecordService {
+
     private final IssueRecordReposiitory issueRecordReposiitory;
     private final BookRepository bookRepository;
     private final StudentRepository studentRepository;
@@ -27,51 +32,95 @@ public class IssueRecordImpl implements IssueRecordService {
         this.studentRepository = studentRepository;
     }
 
+//    Mapping
+
+    //DTO TO Entity
+
+    private  IssueRecord toEntity(IssueRecordRequestDto dto){
+        Student student = studentRepository.findById(dto.getStudentId())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Student not found"));
+
+        Book book = bookRepository.findById(dto.getBookId())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Book not found"));
+
+        IssueRecord issueRecord = new IssueRecord();
+
+        issueRecord.setStudent(student);
+        issueRecord.setBook(book);
+        issueRecord.setIssueDate(dto.getIssueDate());
+        issueRecord.setDueDate(dto.getDueDate());
+        issueRecord.setStatus(IssueStatus.ISSUED);
+
+        return issueRecord;
+
+    }
+
+    //Entity To Dto
+    private IssueRecordResponseDto toDto(IssueRecord issueRecord) {
+
+        IssueRecordResponseDto dto = new IssueRecordResponseDto();
+
+        dto.setId(issueRecord.getId());
+        dto.setStudentName(issueRecord.getStudent().getName());
+        dto.setBookTitle(issueRecord.getBook().getTitle());
+        dto.setIssueDate(issueRecord.getIssueDate());
+        dto.setDueDate(issueRecord.getDueDate());
+        dto.setReturnDate(issueRecord.getReturnDate());
+        dto.setStatus(issueRecord.getStatus());
+
+        return dto;
+    }
+
+
     @Override
-    public void save(IssueRecord issueRecord) {
+    public void save(IssueRecordRequestDto issueRecordRequestDto) {
 
-        Book book = bookRepository.findById(issueRecord.getBook().getId())
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+        IssueRecord issueRecord = toEntity(issueRecordRequestDto);
 
-        Student student = studentRepository.findById(issueRecord.getStudent().getId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+        Book book = issueRecord.getBook();
 
-        // 🔥 CHECK STOCK
         if (book.getQuantity() <= 0) {
             throw new RuntimeException("Book not available");
         }
 
-        // 🔥 REDUCE QUANTITY
         book.setQuantity(book.getQuantity() - 1);
-        // 🔥 SET ISSUE DETAILS
-        issueRecord.setBook(book);
-        issueRecord.setStudent(student);
+
         issueRecord.setIssueDate(LocalDate.now());
         issueRecord.setDueDate(LocalDate.now().plusDays(7));
         issueRecord.setStatus(IssueStatus.ISSUED);
 
-        // save both
         bookRepository.save(book);
         issueRecordReposiitory.save(issueRecord);
 
     }
 
     @Override
-    public List<IssueRecord> findIssuedBook() {
-        return issueRecordReposiitory.findByStatus(IssueStatus.ISSUED);
+    public List<IssueRecordResponseDto> findIssuedBook() {
+        return issueRecordReposiitory.findByStatus(IssueStatus.ISSUED)
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+
     }
 
     @Override
-    public List<IssueRecord> findReturnedBook() {
-        return issueRecordReposiitory.findByStatusNot(IssueStatus.ISSUED);
+    public List<IssueRecordResponseDto> findReturnedBook() {
+        return issueRecordReposiitory.findByStatusNot(IssueStatus.ISSUED)
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public IssueRecord findById(Long id) {
-        return issueRecordReposiitory.findById(id)
+    public IssueRecordResponseDto findById(Long id) {
+         IssueRecord issueRecord = issueRecordReposiitory.findById(id)
                 .orElseThrow(() -> new RuntimeException("IssueRecord not found: " + id));
+         return toDto(issueRecord);
     }
 
+    @Override
     @Transactional
     public void updateStatus(Long id, IssueStatus status) {
 
@@ -94,41 +143,39 @@ public class IssueRecordImpl implements IssueRecordService {
         issueRecordReposiitory.save(record);
     }
 
-//    @Override
-//    public List<IssueRecord> findByStudent_NameAndStatusNot(String name, IssueStatus status) {
-//        return issueRecordReposiitory.findByStudent_NameAndStatusNot(name , status);
-//    }
+
 
     @Override
-    public List<IssueRecord> searchIssuedByStudentName(String keyword) {
-        return issueRecordReposiitory
+    public List<IssueRecordResponseDto> searchIssuedByStudentName(String keyword) {
+        return   issueRecordReposiitory
                 .findByStatusAndStudent_NameContainingIgnoreCase(
                         IssueStatus.ISSUED,
                         keyword
-                );
+                )
+                .stream()
+                .map(this :: toDto)
+                .collect(Collectors.toList());
+
     }
 
     @Override
-    public List<IssueRecord> searchNotIssuedByStudentName(String keyword) {
+    public List<IssueRecordResponseDto> searchNotIssuedByStudentName(String keyword) {
         return issueRecordReposiitory
                 .findByStatusNotAndStudent_NameContainingIgnoreCase(
                         IssueStatus.ISSUED,
                         keyword
-                );
+                )
+                .stream()
+                .map(this :: toDto)
+                .collect(Collectors.toList());
     }
 
-//    @Override
-//    public void saveReturned(IssueRecord existingRecord) {
-//
-//        issueRecordReposiitory.save(existingRecord);
-//    }
-
     @Override
-    public Long countByStatus(IssueStatus issueStatus) {
+    public Long countByStatus() {
         return issueRecordReposiitory.countStudentsWithIssuedBooks();
     }
 
-    public Long countByStatus1(IssueStatus issueStatus){
+    public Long countByStatus1(){
         return issueRecordReposiitory.countStudentsWithoutIssuedBooks();
     }
 }

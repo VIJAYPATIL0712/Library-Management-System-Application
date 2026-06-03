@@ -27,8 +27,8 @@ public class HomeController {
 
         model.addAttribute("totalBooks", bookService.count());
         model.addAttribute("totalStudents", studentService.count());
-        model.addAttribute("totalIssuedBooks", issueRecordService.countByStatus(IssueStatus.ISSUED));
-        model.addAttribute("totalReturnedBooks", issueRecordService.countByStatus1(IssueStatus.RETURNED));
+        model.addAttribute("totalIssuedBooks", issueRecordService.countByStatus());
+        model.addAttribute("totalReturnedBooks", issueRecordService.countByStatus1());
         model.addAttribute("availableBooks",bookService.sumAvailableQuantity());
         return "index";
     }

@@ -1,5 +1,7 @@
 package com.project.library_management.serviceImpl;
 
+import com.project.library_management.dto.book.BookRequestDto;
+import com.project.library_management.dto.book.BookResponseDto;
 import com.project.library_management.entity.Book;
 import com.project.library_management.entity.IssueStatus;
 import com.project.library_management.repository.BookRepository;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -19,9 +22,37 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
     }
 
+//    Mappers
+//    DTO To ENTITY
+    private Book toEntity(BookRequestDto dto){
+        Book book = new Book();
+        book.setTitle(dto.getTitle());
+        book.setAuthor(dto.getAuthor());
+        book.setIsbn(dto.getIsbn());
+        book.setPrice(dto.getPrice());
+        book.setQuantity(dto.getQuantity());
+        return book;
+    }
+
+//    ENTITY TO DTO
+    private BookResponseDto toDto(Book book){
+        BookResponseDto dto = new BookResponseDto();
+        dto.setId(book.getId());
+        dto.setTitle(book.getTitle());
+        dto.setAuthor(book.getAuthor());
+        dto.setIsbn(book.getIsbn());
+        dto.setPrice(book.getPrice());
+        dto.setQuantity(book.getQuantity());
+        return dto;
+    }
+
+
     @Override
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public List<BookResponseDto> getAllBooks() {
+        return bookRepository.findAll()
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -30,19 +61,25 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void saveBook(Book book) {
+    public void saveBook(BookRequestDto bookRequestDto) {
+        Book book = toEntity(bookRequestDto);
         bookRepository.save(book);
     }
 
     @Override
-    public Book getBookById(Long id) {
-        return bookRepository.findById(id)
+    public BookResponseDto getBookById(Long id) {
+        Book book =  bookRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("Book Not Found"));
+        return toDto(book);
     }
 
     @Override
-    public List<Book> searchBook(String keyword) {
-        return bookRepository.findByTitleContainingIgnoreCase(keyword);
+    public List<BookResponseDto> searchBook(String keyword) {
+        return bookRepository.findByTitleContainingIgnoreCase(keyword)
+                .stream()
+                .map(this :: toDto)
+                .collect(Collectors.toList());
+
     }
 
     @Override
@@ -55,5 +92,24 @@ public class BookServiceImpl implements BookService {
     @Override
     public Integer sumAvailableQuantity() {
         return bookRepository.sumQuantity();
+    }
+
+    @Override
+    public BookResponseDto getBookForId(Long id) {
+       Book book =   bookRepository.findById(id)
+                 .orElseThrow(()->new IllegalArgumentException("Book Not Found"));
+       return toDto(book);
+    }
+
+    @Override
+    public void updateBook(Long id, BookRequestDto bookRequestDto) {
+        Book existingBook = bookRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Book Not Found"));
+        existingBook.setTitle(bookRequestDto.getTitle());
+        existingBook.setAuthor(bookRequestDto.getAuthor());
+        existingBook.setIsbn(bookRequestDto.getIsbn());
+        existingBook.setPrice(bookRequestDto.getPrice());
+        existingBook.setQuantity(bookRequestDto.getQuantity());
+        bookRepository.save(existingBook);
     }
 }
