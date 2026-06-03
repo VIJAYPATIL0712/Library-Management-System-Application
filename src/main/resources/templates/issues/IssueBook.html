@@ -44,7 +44,7 @@
                     Select Student
                 </label>
 
-                <select th:field="*{student}"
+                <select th:field="*{studentId}"
                         class="form-select"
                         required>
 
@@ -66,7 +66,7 @@
                     Select Book
                 </label>
 
-                <select th:field="*{book}"
+                <select th:field="*{bookId}"
                         class="form-select"
                         required>
 
@@ -83,16 +83,16 @@
             </div>
 
             <!-- Issue Date -->
-            <div class="mb-3">
-                <label class="form-label">
-                    Issue Date
-                </label>
+<!--            <div class="mb-3">-->
+<!--                <label class="form-label">-->
+<!--                    Issue Date-->
+<!--                </label>-->
 
-                <input type="date"
-                       th:field="*{issueDate}"
-                       class="form-control"
-                       required>
-            </div>
+<!--                <input type="date"-->
+<!--                       th:field="*{issueDate}"-->
+<!--                       class="form-control"-->
+<!--                       required>-->
+<!--            </div>-->
 
             <!-- Due Date -->
             <div class="mb-4">
