@@ -102,4 +102,15 @@
         .card-number{
             font-size:32px;
         }
+        /* DEFAULT (mobile) - show profile */
+        .profile-wrapper {
+            display: inline-block;
+        }
+
+        /* DESKTOP - optional adjustment */
+        @media (min-width: 768px) {
+            .profile-wrapper {
+                display: inline-block; /* keep visible */
+            }
+        }
     }

@@ -13,7 +13,15 @@
             document.getElementById("overlay").classList.remove("show");
         }
 
+        function toggleProfile() {
+            let dropdown = document.getElementById("profileDropdown");
 
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            } else {
+                dropdown.style.display = "block";
+            }
+        }
     </script>
 
 

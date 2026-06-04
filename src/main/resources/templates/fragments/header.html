@@ -37,6 +37,10 @@
         <button class="menu-btn overdue-btn" style="background:red">⌛  Overdue </button>
       </a>
 
+      <a th:href="@{/login}">
+        <button class="menu-btn overdue-btn" style="background:red">  👤 Login </button>
+      </a>
+
     </div>
 
     <!-- MOBILE DROPDOWN BUTTON -->
@@ -50,10 +54,27 @@
       </div>
 
       <!-- RIGHT: PROFILE -->
+      <!-- RIGHT: PROFILE -->
       <div class="right">
-        <div class="icon-btn profile-icon" onclick="toggleProfile()">
-          👤
+
+        <div class="profile-wrapper">
+
+          <div class="icon-btn profile-icon" onclick="toggleProfile()">
+            👤
+          </div>
+
+          <!-- DROPDOWN -->
+          <div id="profileDropdown" class="profile-dropdown">
+
+            <a th:href="@{/login}">🔐 Login</a>
+
+            <!-- optional later -->
+            <a th:href="@{/logout}">🚪 Logout</a>
+
+          </div>
+
         </div>
+
       </div>
 
     </div>
