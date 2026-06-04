@@ -26,7 +26,13 @@
             Manage Students efficiently
         </p>
     </div>
+    <div th:if="${errorMessage}"
+         class="alert alert-danger alert-dismissible fade show"
+         role="alert">
 
+        <span th:text="${errorMessage}"></span>
+
+    </div>
     <div class="search-section mt-2">
 
 

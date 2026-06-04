@@ -7,6 +7,9 @@ import com.project.library_management.entity.Book;
 import com.project.library_management.entity.IssueRecord;
 import com.project.library_management.entity.IssueStatus;
 import com.project.library_management.entity.Student;
+import com.project.library_management.exception.BookNotFoundException;
+import com.project.library_management.exception.IssueRecordNotFoundException;
+import com.project.library_management.exception.StudentNotFoundException;
 import com.project.library_management.repository.BookRepository;
 import com.project.library_management.repository.IssueRecordReposiitory;
 import com.project.library_management.repository.StudentRepository;
@@ -39,11 +42,11 @@ public class IssueRecordImpl implements IssueRecordService {
     private  IssueRecord toEntity(IssueRecordRequestDto dto){
         Student student = studentRepository.findById(dto.getStudentId())
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Student not found"));
+                        new StudentNotFoundException("Student Not Found With Id : " + dto.getStudentId()));
 
         Book book = bookRepository.findById(dto.getBookId())
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Book not found"));
+                        new BookNotFoundException("Book Not Found With Id : " + dto.getBookId()));
 
         IssueRecord issueRecord = new IssueRecord();
 
@@ -94,7 +97,7 @@ public class IssueRecordImpl implements IssueRecordService {
         Book book = issueRecord.getBook();
 
         if (book.getQuantity() <= 0) {
-            throw new RuntimeException("Book not available");
+            throw new IssueRecordNotFoundException("Book Not Found");
         }
 
         book.setQuantity(book.getQuantity() - 1);
@@ -143,7 +146,7 @@ public class IssueRecordImpl implements IssueRecordService {
     @Override
     public IssueRecordResponseDto findById(Long id) {
          IssueRecord issueRecord = issueRecordReposiitory.findById(id)
-                .orElseThrow(() -> new RuntimeException("IssueRecord not found: " + id));
+                .orElseThrow(() -> new IssueRecordNotFoundException("IssueRecord Not Found With Id : " + id));
          return toDto(issueRecord);
     }
 
@@ -152,7 +155,7 @@ public class IssueRecordImpl implements IssueRecordService {
     public void updateStatus(Long id, IssueStatus status) {
 
         IssueRecord record = issueRecordReposiitory.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found"));
+                .orElseThrow(() -> new IssueRecordNotFoundException("IssueRecord Not Found With Id : " + id));
 
         Book book = record.getBook();
 

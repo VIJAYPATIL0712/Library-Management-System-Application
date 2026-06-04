@@ -4,6 +4,7 @@ import com.project.library_management.dto.book.BookRequestDto;
 import com.project.library_management.dto.book.BookResponseDto;
 import com.project.library_management.entity.Book;
 import com.project.library_management.entity.IssueStatus;
+import com.project.library_management.exception.BookNotFoundException;
 import com.project.library_management.repository.BookRepository;
 import com.project.library_management.service.BookService;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookResponseDto getBookById(Long id) {
         Book book =  bookRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("Book Not Found"));
+                .orElseThrow(()->new BookNotFoundException("Book Not Found Exception : " + id));
         return toDto(book);
     }
 
@@ -97,14 +98,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookResponseDto getBookForId(Long id) {
        Book book =   bookRepository.findById(id)
-                 .orElseThrow(()->new IllegalArgumentException("Book Not Found"));
+                 .orElseThrow(()->new BookNotFoundException("Book Not Found Exception : " + id));
        return toDto(book);
     }
 
     @Override
     public void updateBook(Long id, BookRequestDto bookRequestDto) {
         Book existingBook = bookRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("Book Not Found"));
+                .orElseThrow(()->new BookNotFoundException("Book Not Found Exception : " + id));
         existingBook.setTitle(bookRequestDto.getTitle());
         existingBook.setAuthor(bookRequestDto.getAuthor());
         existingBook.setIsbn(bookRequestDto.getIsbn());

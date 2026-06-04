@@ -3,6 +3,7 @@ package com.project.library_management.serviceImpl;
 import com.project.library_management.dto.student.StudentRequestDto;
 import com.project.library_management.dto.student.StudentResponseDto;
 import com.project.library_management.entity.Student;
+import com.project.library_management.exception.StudentNotFoundException;
 import com.project.library_management.repository.StudentRepository;
 import com.project.library_management.service.StudentService;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentResponseDto getStudentById(Long id) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Student Not Found"));
+                .orElseThrow(() -> new StudentNotFoundException("Student Not Found With Id : " + id));
 
         return toDto(student);
     }
@@ -84,7 +85,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void updateStudent(Long id, StudentRequestDto studentRequestDto) {
         Student existingStudent = studentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Student Not Found"));
+                .orElseThrow(() -> new StudentNotFoundException("Student Not Found With Id : " + id));
 
         existingStudent.setName(studentRequestDto.getName());
         existingStudent.setEmail(studentRequestDto.getEmail());
@@ -97,7 +98,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentResponseDto getStudentForId(Long id) {
 
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found with id: " + id));
+                .orElseThrow(() -> new StudentNotFoundException("Student Not Found With Id : " + id));
 
         return toDto(student);
     }
