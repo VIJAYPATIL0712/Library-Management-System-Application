@@ -1,4 +1,4 @@
-Spring Security - Library Management System (One Page Documentation)
+Spring Security - Library Management System
 Purpose
 
 Spring Security is used to:
