@@ -100,7 +100,9 @@
                     <td data-label="ISBN" th:text="${book.isbn}"></td>
                     <td data-label="Price" th:text="'₹' + ${book.price}"></td>
                     <td data-label="Quantity">
+                        <div sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">
                         <span class="badge bg-success" th:text="${book.quantity}"></span>
+                        </div>
                     </td>
                     <td>
                         <div sec:authorize="hasRole('ADMIN')">

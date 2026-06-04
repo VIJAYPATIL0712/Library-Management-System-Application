@@ -38,7 +38,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/", "/login", "/css/**", "/js/**")
+                        .requestMatchers("/", "/login","/books", "/css/**", "/js/**")
                         .permitAll()
 
                         // ADMIN ONLY
