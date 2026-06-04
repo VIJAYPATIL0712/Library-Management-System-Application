@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Library Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,10 +56,11 @@
 
             </form>
 
-            <a th:href="@{/students/new}"
-               class="btn btn-primary">
-                Add Student
-            </a>
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/students/new}" class="btn btn-primary">
+                    Add Student
+                </a>
+            </div>
 
         </div>
 
@@ -95,16 +98,31 @@
 
                 <td data-label="Actions">
 
-                    <a th:href="@{/students/edit/{id}(id=${student.id})}"
-                       class="btn btn-warning btn-sm me-1 mb-1">
-                        Edit
-                    </a>
+<!--                    <a th:href="@{/students/edit/{id}(id=${student.id})}"-->
+<!--                       class="btn btn-warning btn-sm me-1 mb-1">-->
+<!--                        Edit-->
+<!--                    </a>-->
 
-                    <a th:href="@{/students/delete/{id}(id=${student.id})}"
-                       class="btn btn-danger btn-sm mb-1"
-                       onclick="return confirm('Are you sure you want to delete this student?')">
-                        Delete
-                    </a>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/students/edit/{id}(id=${student.id})}"
+                           class="btn btn-warning btn-sm mb-1 mb-1">
+                            Edit
+                        </a>
+                    </div>
+
+
+
+<!--                    <a th:href="@{/students/delete/{id}(id=${student.id})}"-->
+<!--                       class="btn btn-danger btn-sm mb-1"-->
+<!--                       onclick="return confirm('Are you sure you want to delete this student?')">-->
+<!--                        Delete-->
+<!--                    </a>-->
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                           class="btn btn-danger btn-sm mb-1">
+                            Delete
+                        </a>
+                    </div>
 
                 </td>
 

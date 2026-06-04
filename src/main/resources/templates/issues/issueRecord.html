@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Library Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,10 +54,15 @@
 
                 </form>
 
-                <a th:href="@{/issues/new}"
-                   class="btn btn-primary">
-                    Issue Book
-                </a>
+<!--                <a th:href="@{/issues/new}"-->
+<!--                   class="btn btn-primary">-->
+<!--                    Issue Book-->
+<!--                </a>-->
+                <div sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">
+                    <a th:href="@{/issues/new}" class="btn btn-primary">
+                        Issue Book
+                    </a>
+                </div>
 
             </div>
 
@@ -109,20 +114,35 @@
 
                     <td data-label="Actions">
 
-                        <a th:href="@{/issues/return/{id}(id=${issueRecord.id})}"
-                           class="btn btn-success btn-sm me-1 mb-1">
-                            Return
-                        </a>
+                        <div sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">
+                            <a th:href="@{/issues/return/{id}(id=${issueRecord.id})}" class="btn btn-success btn-sm me-1 mb-1">
+                                Return
+                            </a>
+                        </div>
+<!--                        <a th:href="@{/issues/return/{id}(id=${issueRecord.id})}"-->
+<!--                           class="btn btn-success btn-sm me-1 mb-1">-->
+<!--                            Return-->
+<!--                        </a>-->
 
-                        <a th:href="@{/issues/lost/{id}(id=${issueRecord.id})}"
-                           class="btn btn-danger btn-sm me-1 mb-1">
-                            Lost
-                        </a>
+                        <div sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">
+                            <a th:href="@{/issues/lost/{id}(id=${issueRecord.id})}" class="btn btn-danger btn-sm me-1 mb-1">
+                                Lost
+                            </a>
+                        </div>
+<!--                        <a th:href="@{/issues/lost/{id}(id=${issueRecord.id})}"-->
+<!--                           class="btn btn-danger btn-sm me-1 mb-1">-->
+<!--                            Lost-->
+<!--                        </a>-->
 
-                        <a th:href="@{/issues/damaged/{id}(id=${issueRecord.id})}"
-                           class="btn btn-warning btn-sm mb-1">
-                            Damaged
-                        </a>
+                        <div sec:authorize="hasAnyRole('ADMIN','LIBRARIAN')">
+                            <a th:href="@{/issues/damaged/{id}(id=${issueRecord.id})}" class="btn btn-warning btn-sm me-1 mb-1">
+                                Damaged
+                            </a>
+                        </div>
+<!--                        <a th:href="@{/issues/damaged/{id}(id=${issueRecord.id})}"-->
+<!--                           class="btn btn-warning btn-sm mb-1">-->
+<!--                            Damaged-->
+<!--                        </a>-->
 
                     </td>
 

@@ -1,4 +1,5 @@
-<div th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="header" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     xmlns:th="http://www.w3.org/1999/xhtml">
 
   <!-- HERO SECTION (Desktop stays SAME) -->
   <div class="hero-section">
@@ -8,6 +9,9 @@
 
     <p>
       Manage Books, Students, Issue & Return Operations Efficiently
+      <span sec:authorize="isAuthenticated()">
+    Welcome, <span sec:authentication="name"></span>
+</span>
     </p>
 
     <!-- DESKTOP BUTTONS -->
@@ -37,9 +41,18 @@
         <button class="menu-btn overdue-btn" style="background:red">⌛  Overdue </button>
       </a>
 
-      <a th:href="@{/login}">
-        <button class="menu-btn overdue-btn" style="background:red">  👤 Login </button>
-      </a>
+      <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+          <button type="submit" class="menu-btn overdue-btn" style="background:crimson">
+            🚪 Logout
+          </button>
+        </form>
+      </div>
+      <div sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}">
+          <button  class="menu-btn overdue-btn" style="background:teal">👤 Login</button>
+        </a>
+      </div>
 
     </div>
 
@@ -66,10 +79,23 @@
           <!-- DROPDOWN -->
           <div id="profileDropdown" class="profile-dropdown">
 
-            <a th:href="@{/login}">🔐 Login</a>
+            <div sec:authorize="!isAuthenticated()">
+              <a th:href="@{/login}">🔐 Login</a>
+            </div>
 
             <!-- optional later -->
-            <a th:href="@{/logout}">🚪 Logout</a>
+            <form th:action="@{/logout}" method="post"
+                  sec:authorize="isAuthenticated()">
+
+              <div sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                  <button type="submit" class="dropdown-btn">
+                    🚪 Logout
+                  </button>
+                </form>
+              </div>
+
+            </form>
 
           </div>
 
@@ -92,6 +118,7 @@
       <a th:href="@{/issues}">📤 Issues</a>
       <a th:href="@{/returns}">📥 Returns</a>
       <a th:href="@{/overdue}">⌛ Overdue </a>
+
 
     </div>
 
