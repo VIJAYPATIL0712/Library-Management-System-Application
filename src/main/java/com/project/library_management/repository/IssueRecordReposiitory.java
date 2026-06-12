@@ -54,4 +54,6 @@ public interface IssueRecordReposiitory extends JpaRepository<IssueRecord , Long
               LocalDate date,
               String keyword
       );
+
+    boolean existsByBookId(Long id);
 }

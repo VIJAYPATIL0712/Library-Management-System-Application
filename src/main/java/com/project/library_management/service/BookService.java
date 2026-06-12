@@ -13,7 +13,7 @@ public interface BookService {
 
     List<BookResponseDto> getAllBooks();
 
-    void deleteStudentById(Long id);
+    void deleteBookById(Long id);
 
     void saveBook(BookRequestDto bookRequestDto);
 
